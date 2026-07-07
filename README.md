@@ -4,7 +4,7 @@
 
 > 설계 문서에서 멈추지 않고, VM 8대로 실제 인프라를 구축해 수치로 증명하는 것을 목표로 했습니다.
 
-![아키텍처](repo-assets/architecture.png)
+![아키텍처](architecture.png)
 
 ## 핵심 결과
 
@@ -19,10 +19,10 @@
 
 ## 무엇부터 보면 되나요
 
-- **전체를 훑고 싶다면** → [`docs/ticket-portfolio-full.pdf`](docs/ticket-portfolio-full.pdf) (설계 계획 + 실행 결과 통합본, 23p)
-- **발표/면접용 요약이 필요하다면** → [`slides/ticket-project-v2.pptx`](slides/ticket-project-v2.pptx)
-- **코드를 보고 싶다면** → [`scripts/`](scripts/)
-- **트러블슈팅 과정이 궁금하다면** → [`docs/troubleshooting-full.pdf`](docs/troubleshooting-full.pdf)
+- **전체를 훑고 싶다면** → [`ticket-portfolio-full.pdf`](ticket-portfolio-full.pdf) (설계 계획 + 실행 결과 통합본, 23p)
+- **발표/면접용 요약이 필요하다면** → [`ticket-project-v2.pptx`](ticket-project-v2.pptx)
+- **코드를 보고 싶다면** → [`ticket-scripts.zip`](ticket-scripts.zip) (다운로드 후 압축 해제)
+- **트러블슈팅 과정이 궁금하다면** → [`troubleshooting-full.pdf`](troubleshooting-full.pdf)
 
 ## 인프라 구성
 
@@ -43,26 +43,28 @@ VMware Fusion 위에 VM 8대, `172.16.60.0/24` 대역.
 
 `VMware Fusion` `Ubuntu` `Nginx` `Node.js` `Express` `Redis` `MariaDB` `Suricata` `K6` `nmap` `Nikto` `ufw`
 
-## 문서 목록 (docs/)
+## 문서 목록
 
 | 문서 | 내용 |
 |---|---|
-| ticket-portfolio-full.pdf | 설계 계획(Part 1~7) + 실행 결과(Part 8~9) 통합본 |
-| session-report.pdf | 구축 세션 요약, 서버 접속경로 다이어그램 |
-| as-built.pdf | 설계 대비 실제 구현 변경사항, 서버별 최종 명령어 |
-| loadtest-report.pdf | 부하테스트 결과 (대기열 ON/OFF 비교) |
-| concurrency-report.pdf | 좌석 동시성 검증 결과 |
-| pentest-report.pdf | 자체 모의해킹 결과 (nmap, Nikto) |
-| webapp-vuln-report.pdf | 웹 애플리케이션 취약점 분석 (OWASP Top 10 자가점검) |
-| auth-verification-report.pdf | 회원가입/로그인/잠금/비밀번호변경 및 관리자 계정 만료 정책 검증 |
-| db-replication-log.pdf | DB 복제 구축 기록 및 트러블슈팅 |
-| suricata-report.pdf | Suricata 실시간 이상탐지 구축 리포트 |
-| troubleshooting-full.pdf | 전체 세션 트러블슈팅 종합 (증상·원인·해결·교훈) |
+| [ticket-portfolio-full.pdf](ticket-portfolio-full.pdf) | 설계 계획(Part 1~7) + 실행 결과(Part 8~9) 통합본 |
+| [session-report.pdf](session-report.pdf) | 구축 세션 요약, 서버 접속경로 다이어그램 |
+| [as-built.pdf](as-built.pdf) | 설계 대비 실제 구현 변경사항, 서버별 최종 명령어 |
+| [loadtest-report.pdf](loadtest-report.pdf) | 부하테스트 결과 (대기열 ON/OFF 비교) |
+| [concurrency-report.pdf](concurrency-report.pdf) | 좌석 동시성 검증 결과 |
+| [pentest-report.pdf](pentest-report.pdf) | 자체 모의해킹 결과 (nmap, Nikto) |
+| [webapp-vuln-report.pdf](webapp-vuln-report.pdf) | 웹 애플리케이션 취약점 분석 (OWASP Top 10 자가점검) |
+| [auth-verification-report.pdf](auth-verification-report.pdf) | 회원가입/로그인/잠금/비밀번호변경 및 관리자 계정 만료 정책 검증 |
+| [db-replication-log.pdf](db-replication-log.pdf) | DB 복제 구축 기록 및 트러블슈팅 |
+| [suricata-report.pdf](suricata-report.pdf) | Suricata 실시간 이상탐지 구축 리포트 |
+| [troubleshooting-full.pdf](troubleshooting-full.pdf) | 전체 세션 트러블슈팅 종합 (증상·원인·해결·교훈) |
 
-## 코드 구조 (scripts/)
+## 코드 (ticket-scripts.zip)
+
+압축 파일 안에 아래 구조로 정리되어 있습니다.
 
 ```
-scripts/
+ticket-scripts/
 ├── was-api/       예약 API 서버 (server.js, schema.sql)
 ├── k6/            부하테스트 스크립트 (동시성/대기열/공격시뮬레이션)
 ├── nginx/         queue-gate, web-lb 설정
@@ -70,9 +72,13 @@ scripts/
 └── firewall/      서버별 ufw 규칙
 ```
 
+## 발표자료
+
+[`ticket-project-v2.pptx`](ticket-project-v2.pptx) — 아키텍처, 접속 경로, 방화벽 매트릭스, 검증 결과, 모의해킹, 회원 인증, 트러블슈팅까지 17장으로 정리한 발표용 슬라이드입니다.
+
 ## 다음 단계
 
-- [x] 회원 인증 API 구현 (bcrypt 해시, 로그인 실패 잠금, 비밀번호 변경) — AUTH-2026-0707-01 참고
+- [x] 회원 인증 API 구현 (bcrypt 해시, 로그인 실패 잠금, 비밀번호 변경) — auth-verification-report.pdf 참고
 - [ ] IDOR(접근제어) 테스트 및 결과 문서화
 - [ ] 세션 쿠키 보안속성(HttpOnly/Secure/SameSite) 확인
 - [ ] TLS 적용, 잔여 보안 헤더 2종 조치
